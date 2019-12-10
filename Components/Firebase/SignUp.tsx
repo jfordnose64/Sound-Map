@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import * as firebase from 'firebase'
+import { SocialIcon } from 'react-native-elements'
 
 export default function SignUp() {
   const [email, setEmail] = useState('')
@@ -11,7 +12,7 @@ export default function SignUp() {
 
   return (
     <View>
-      <Text>Sign Up</Text>
+      <Text style={styles.header}>Sign Up</Text>
       <TextInput
         style={styles.input}
         textContentType="emailAddress"
@@ -41,6 +42,8 @@ export default function SignUp() {
         onPress={() => handleSignUp(email, pass)}
       />
       <Button title="123" onPress={() => pushAction()} />
+      <SocialIcon title="Sign Up With Google" button type="google" />
+      <SocialIcon title="Sign Up With Facebook" button type="facebook" />
     </View>
   )
 }
@@ -79,5 +82,11 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 20,
     width: '50%'
+  },
+  header: {
+    textAlign: 'center',
+    fontSize: 25,
+    padding: 10,
+    fontWeight: '500'
   }
 })

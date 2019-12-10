@@ -6,7 +6,7 @@ class Auth extends React.Component {
   render() {
     return (
       <View>
-        <Text>Welcome to Sound Map!</Text>
+        <Text style={styles.container}>Welcome to Sound Map!</Text>
         <Button
           title="Login"
           onPress={() => this.props.navigation.navigate('Login')}

@@ -10,6 +10,9 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [pass, setPassword] = useState('')
   const [buttonColor, setButtonColor] = useState('gray')
+  const [name, setName] = useState('jackson')
+  const [userId, setUserId] = useState('')
+  const [imageUrl, setImageUrl] = useState('')
 
   const login = async (email, pass) => {
     try {
@@ -28,14 +31,27 @@ export default function Login() {
     }
   }
 
-  // const pushAction = () => {
-  //   StackActions.push({
-  //     routeName: 'Profile',
-  //     params: {
-  //       myUserId: 9
-  //     }
-  //   })
-  // }
+  const writeUserData = (userId, name, email, imageUrl) => {
+    firebase
+      .database()
+      .ref('users/' + userId)
+      .set({
+        displayName: name,
+        email: email,
+        photoURL: imageUrl
+      })
+    console.log(userId)
+    console.log(name)
+  }
+
+  const user = () => {
+    const currentUser = firebase.auth()
+    // this.setState({ currentUser })
+    // console.log(currentUser.currentUser)
+    setUserId(currentUser.currentUser.uid)
+    console.log(currentUser.currentUser)
+    writeUserData(userId, name, email, imageUrl)
+  }
 
   return (
     <View>
@@ -62,6 +78,7 @@ export default function Login() {
         title="Submit"
         onPress={() => login(email, pass)}
       />
+      <Button title="user" onPress={() => user()} />
     </View>
   )
 }
