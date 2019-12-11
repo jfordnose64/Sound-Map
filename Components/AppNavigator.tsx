@@ -22,7 +22,7 @@ const AppNavigator = createStackNavigator(
     Loading: { screen: Loading }
   },
   {
-    initialRouteName: 'HomeScreen'
+    initialRouteName: 'Loading'
   }
 )
 const AppContainer = createAppContainer(AppNavigator)

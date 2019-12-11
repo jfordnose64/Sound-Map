@@ -5,66 +5,74 @@ import { TextInput } from 'react-native-gesture-handler'
 import * as firebase from 'firebase'
 import { SocialIcon } from 'react-native-elements'
 
-export default function SignUp() {
-  const [email, setEmail] = useState('')
-  const [pass, setPassword] = useState('')
-  const [confirmPass, setConPass] = useState('')
+class SignUp extends React.Component {
+  state = {
+    email: '',
+    pass: '',
+    confirmPass: '',
+    buttonColor: 'gray'
+  }
 
-  return (
-    <View>
-      <Text style={styles.header}>Sign Up</Text>
-      <TextInput
-        style={styles.input}
-        textContentType="emailAddress"
-        value={email}
-        onChangeText={text => setEmail(text)}
-        placeholder="email"
-      />
-      <TextInput
-        style={styles.input}
-        secureTextEntry={true}
-        textContentType="newPassword"
-        value={pass}
-        onChangeText={text => setPassword(text)}
-        placeholder="password"
-      />
-      <TextInput
-        style={styles.input}
-        secureTextEntry={true}
-        textContentType="newPassword"
-        value={confirmPass}
-        onChangeText={text => setConPass(text)}
-        placeholder="confirm password"
-      />
-      <Button
-        style={styles.button}
-        title="Submit"
-        onPress={() => handleSignUp(email, pass)}
-      />
-      <Button title="123" onPress={() => pushAction()} />
-      <SocialIcon title="Sign Up With Google" button type="google" />
-      <SocialIcon title="Sign Up With Facebook" button type="facebook" />
-    </View>
-  )
-}
-
-const handleSignUp = (email, pass) => {
-  firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, pass)
-    .catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code
-      var errorMessage = error.message
-      // [START_EXCLUDE]
-      if (errorCode == 'auth/weak-password') {
-        alert('The password is too weak.')
-      } else {
-        alert(errorMessage)
-      }
+  handleSignUp = async (email, pass) => {
+    try {
+      await firebase.auth().createUserWithEmailAndPassword(email, pass)
+      this.setState({ buttonColor: 'green' })
+      this.props.navigation.navigate('Login')
+    } catch (error) {
+      alert('Email address/ Password is incorrect')
       console.log(error)
-      // [END_EXCLUDE]
-    })
+      this.setState({ buttonColor: 'red' })
+    }
+  }
+
+  render() {
+    return (
+      <View>
+        <Text style={styles.header}>Sign Up</Text>
+        <TextInput
+          style={styles.input}
+          textContentType="emailAddress"
+          value={this.state.email}
+          onChangeText={email => this.setState({ email })}
+          placeholder="email"
+        />
+        <TextInput
+          style={styles.input}
+          secureTextEntry={true}
+          textContentType="newPassword"
+          value={this.state.pass}
+          onChangeText={pass => this.setState({ pass })}
+          placeholder="password"
+        />
+        <TextInput
+          style={styles.input}
+          secureTextEntry={true}
+          textContentType="newPassword"
+          value={this.state.confirmPass}
+          onChangeText={confirmPass => this.setState({ confirmPass })}
+          placeholder="confirm password"
+        />
+        <Button
+          style={styles.button}
+          color={this.state.buttonColor}
+          title="Submit"
+          onPress={() => this.handleSignUp(this.state.email, this.state.pass)}
+        />
+
+        <SocialIcon
+          title="Sign Up With Google"
+          button
+          type="google"
+          // onPress={() => google()}
+        />
+        <SocialIcon title="Sign Up With Facebook" button type="facebook" />
+        <Button
+          title="Login"
+          onPress={() => this.props.navigation.navigate('Login')}
+        />
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -90,3 +98,5 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   }
 })
+
+export default SignUp

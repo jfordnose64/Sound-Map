@@ -1,86 +1,92 @@
 import * as React from 'react'
-import { useState } from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
 import * as firebase from 'firebase'
-import { NavigationActions } from 'react-navigation'
-import { StackActions } from 'react-navigation'
+import { TextInput } from 'react-native-gesture-handler'
+import { createAppContainer } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
+import { View, Text, StyleSheet, Button } from 'react-native'
+import SignOut from './SignOut'
 
-export default function Login() {
-  const [email, setEmail] = useState('')
-  const [pass, setPassword] = useState('')
-  const [buttonColor, setButtonColor] = useState('gray')
-  const [name, setName] = useState('jackson')
-  const [userId, setUserId] = useState('')
-  const [imageUrl, setImageUrl] = useState('')
+class Loin extends React.Component {
+  state = {
+    user: null,
+    email: '',
+    pass: '',
+    buttonColor: 'gray'
+  }
 
-  const login = async (email, pass) => {
+  login = async (email, pass) => {
     try {
+      //Login to firebase for auth
       await firebase.auth().signInWithEmailAndPassword(email, pass)
-      setButtonColor('green')
-      alert('Logged In')
-      // pushAction()
+      //Change the color of the button
+      this.setState({ buttonColor: 'green' })
+      // alert('Logged In')
       console.log('Logged In!')
-      // console.log('Home')
-
+      this.user()
+      console.log(this.state.user)
+      // const letUser = this.state.user
+      // console.log(letUser)
       // Navigate to the Home page
+      this.props.navigation.navigate('Home', {
+        data: { letUser: this.state.user }
+      })
     } catch (error) {
+      //Catch error
       console.log(error)
+      //Alert to show error to consumer
       alert('Email address/ Password is incorrect')
-      setButtonColor('red')
+      //Visually show login failed
+      this.setState({ buttonColor: 'red' })
     }
   }
 
-  const writeUserData = (userId, name, email, imageUrl) => {
-    firebase
-      .database()
-      .ref('users/' + userId)
-      .set({
-        displayName: name,
-        email: email,
-        photoURL: imageUrl
-      })
-    console.log(userId)
-    console.log(name)
-  }
-
-  const user = () => {
+  user = () => {
+    //Call for current user
     const currentUser = firebase.auth()
-    // this.setState({ currentUser })
-    // console.log(currentUser.currentUser)
-    setUserId(currentUser.currentUser.uid)
-    console.log(currentUser.currentUser)
-    writeUserData(userId, name, email, imageUrl)
+    this.setState({
+      user: currentUser.currentUser.providerData
+    })
+    console.log(currentUser)
   }
 
-  return (
-    <View>
-      <Text style={styles.container}>Login Page</Text>
-      <TextInput
-        textContentType="emailAddress"
-        autoCompleteType="email"
-        style={styles.input}
-        value={email}
-        onChangeText={text => setEmail(text)}
-        placeholder="email"
-      />
-      <TextInput
-        secureTextEntry={true}
-        textContentType="password"
-        style={styles.input}
-        value={pass}
-        onChangeText={text => setPassword(text)}
-        placeholder="password"
-      />
-      <Button
-        style={styles.button}
-        color={buttonColor}
-        title="Submit"
-        onPress={() => login(email, pass)}
-      />
-      <Button title="user" onPress={() => user()} />
-    </View>
-  )
+  render() {
+    return (
+      <View>
+        <Text style={styles.container}>Login Page</Text>
+        <TextInput
+          textContentType="emailAddress"
+          autoCompleteType="email"
+          style={styles.input}
+          value={this.state.email}
+          onChangeText={email => this.setState({ email })}
+          placeholder="email"
+        />
+        <TextInput
+          secureTextEntry={true}
+          textContentType="password"
+          style={styles.input}
+          value={this.state.pass}
+          onChangeText={pass => this.setState({ pass })}
+          placeholder="password"
+        />
+        <Button
+          style={styles.button}
+          color={this.state.buttonColor}
+          title="Submit"
+          onPress={() => this.login(this.state.email, this.state.pass)}
+        />
+        {/* <Button
+          title="Home"
+          onPress={() => this.props.navigation.navigate('Home')}
+        /> */}
+        <SignOut />
+        <Button
+          title="Create Account"
+          onPress={() => this.props.navigation.navigate('SignUp')}
+        />
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -103,3 +109,5 @@ const styles = StyleSheet.create({
     width: '50%'
   }
 })
+
+export default Loin
