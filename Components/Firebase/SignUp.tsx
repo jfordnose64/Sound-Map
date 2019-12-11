@@ -53,21 +53,22 @@ class SignUp extends React.Component {
           placeholder="confirm password"
         />
         <Button
+          disabled={this.isInvalid}
           style={styles.button}
           color={this.state.buttonColor}
-          title="Submit"
+          title="Sign Up"
           onPress={() => this.handleSignUp(this.state.email, this.state.pass)}
         />
 
-        <SocialIcon
+        {/* <SocialIcon
           title="Sign Up With Google"
           button
           type="google"
           // onPress={() => google()}
         />
-        <SocialIcon title="Sign Up With Facebook" button type="facebook" />
+        <SocialIcon title="Sign Up With Facebook" button type="facebook" /> */}
         <Button
-          title="Login"
+          title="Already have a account?"
           onPress={() => this.props.navigation.navigate('Login')}
         />
       </View>

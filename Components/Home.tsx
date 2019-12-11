@@ -5,26 +5,79 @@ import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import SignOut from './Firebase/SignOut'
 
+interface Name {
+  name: string
+}
+
 class Home extends React.Component {
-  state = { currentUser: null }
+  state = {
+    currentUser: null,
+    isLoggedIn: false,
+    color: 'red',
+    name: 'First Name'
+  }
 
   render() {
     const { letUser } = this.props.navigation.state.params.data
     const user = () => {
-      this.setState({ currentUser: letUser })
-      console.log(letUser)
+      this.setState({ currentUser: letUser, isLoggedIn: true })
+      const currentUser = firebase.auth()
+      console.log(currentUser)
+      console.log('logged')
+      // query()
+    }
+
+    const query = async () => {
+      try {
+        firebase
+          .database()
+          .ref(`users/${this.state.currentUser}`)
+          .set({
+            email: 'jford@gmail.com',
+            name: 'Jackson Ford',
+            uid: this.state.currentUser
+          })
+        console.log('Inserted')
+        console.log(this.state.currentUser)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    const readUserData = async () => {
+      try {
+        await firebase
+          .database()
+          .ref(`users/${this.state.currentUser}`)
+          .on('value', function(snapshot) {
+            const data = snapshot => {
+              console.log(snapshot.val())
+              const userName = snapshot.val()
+              const set = () => {
+                console.log('Set')
+                this.setState({ name: JSON.stringify(userName.name) })
+              }
+              console.log(userName.name)
+            }
+            data(snapshot)
+          })
+      } catch (error) {
+        console.log(error)
+      }
     }
 
     return (
       <View>
         <Text style={styles.container}>Home Page</Text>
-
         <Button
           title="Go to Details"
           onPress={() => this.props.navigation.navigate('HomeScreen')}
         />
         <Button title="user" onPress={() => user()} />
+        <Button title="User Data" onPress={() => readUserData()} />
         <SignOut />
+        <Text>User name: {this.setName}</Text>
+        <Text style={{ color: this.state.color }}>Logged In</Text>
       </View>
     )
   }

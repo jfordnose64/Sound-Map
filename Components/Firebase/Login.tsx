@@ -44,9 +44,9 @@ class Loin extends React.Component {
     //Call for current user
     const currentUser = firebase.auth()
     this.setState({
-      user: currentUser.currentUser.providerData
+      user: currentUser.currentUser.uid
     })
-    console.log(currentUser)
+    // console.log(currentUser)
   }
 
   render() {
@@ -79,10 +79,14 @@ class Loin extends React.Component {
           title="Home"
           onPress={() => this.props.navigation.navigate('Home')}
         /> */}
-        <SignOut />
+        {/* <SignOut /> */}
         <Button
           title="Create Account"
           onPress={() => this.props.navigation.navigate('SignUp')}
+        />
+        <Button
+          title="Forgot Password?"
+          onPress={() => this.props.navigation.navigate('Password')}
         />
       </View>
     )
