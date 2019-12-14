@@ -3,8 +3,8 @@ import * as firebase from 'firebase'
 import { View, Button, Text, StyleSheet } from 'react-native'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
+import Navigation from './Navigation'
 import SignOut from './Firebase/SignOut'
-import BottomTabs from './BottomTabs'
 
 interface Name {
   name: string
@@ -82,6 +82,7 @@ class Home extends React.Component {
         <Text style={{ color: this.state.color, textAlign: 'center' }}>
           Logged In
         </Text>
+        <Navigation />
       </View>
     )
   }

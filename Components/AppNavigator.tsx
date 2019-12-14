@@ -1,5 +1,6 @@
 import { createStackNavigator } from 'react-navigation-stack'
 import { createAppContainer } from 'react-navigation'
+import { createBottomTabNavigator } from 'react-navigation-tabs'
 import React from 'react'
 import Home from './Home'
 import SignUp from './Firebase/SignUp'
@@ -22,9 +23,9 @@ const AppNavigator = createStackNavigator(
     Loading: { screen: Loading }
   },
   {
-    initialRouteName: 'Loading'
+    initialRouteName: 'Loading',
+    headerMode: 'none'
   }
 )
 const AppContainer = createAppContainer(AppNavigator)
-
 export default AppContainer

@@ -3,6 +3,7 @@ import * as firebase from 'firebase'
 import { StyleSheet, Text, View, Button } from 'react-native'
 import { handleNavigationChange } from 'react-navigation-stack'
 import AppNavigator from './Components/AppNavigator'
+import Navigation from './Components/Navigation'
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
         onNavigationStateChange={handleNavigationChange}
         uriPrefix="/app"
       />
+      {/* <Navigation /> */}
     </>
   )
 }

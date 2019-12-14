@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@react-native-community/google-signin": "^3.0.3",
+    "@react-navigation/bottom-tabs": "^5.0.0-alpha.25",
+    "@react-navigation/native": "^5.0.0-alpha.18",
     "expo": "^35.0.0",
     "expo-image-picker": "^8.0.1",
     "firebase": "^7.5.2",
@@ -21,10 +23,14 @@
     "react-native-google-signin": "^2.1.1",
     "react-native-imagepicker": "^2.0.0",
     "react-native-paper": "^3.3.0",
+    "react-native-reanimated": "^1.4.0",
+    "react-native-safe-area-context": "~0.3.6",
+    "react-native-screens": "^1.0.0-alpha.23",
     "react-native-web": "^0.11.7",
     "react-navigation": "^4.0.10",
     "react-navigation-material-bottom-tabs": "^2.1.5",
-    "react-navigation-stack": "^1.10.3"
+    "react-navigation-stack": "^1.10.3",
+    "react-navigation-tabs": "^2.6.2"
   },
   "devDependencies": {
     "@types/react": "^16.8.23",
