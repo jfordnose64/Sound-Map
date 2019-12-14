@@ -22,9 +22,6 @@ export default function Profile() {
   return (
     <View>
       <Text style={styles.container}>Profile Page</Text>
-      <ThemeProvider theme={theme}>
-        <Button title="Solid Button" type="outline" />
-      </ThemeProvider>
     </View>
   )
 }
