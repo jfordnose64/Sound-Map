@@ -5,15 +5,15 @@ import * as firebase from 'firebase'
 import { TextInput } from 'react-native-gesture-handler'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
-import { View, Text, StyleSheet, Button, ImageBackground } from 'react-native'
-import SignOut from './SignOut'
+import { View, Text, StyleSheet, ImageBackground } from 'react-native'
+import { Button } from 'react-native-elements'
 
 class Loin extends React.Component {
   state = {
     user: null,
     email: '',
     pass: '',
-    buttonColor: 'gray'
+    buttonColor: '#272343'
   }
 
   login = async (email, pass) => {
@@ -54,40 +54,67 @@ class Loin extends React.Component {
   render() {
     return (
       <View style={styles.body}>
-        <Text style={styles.container}>Login Page</Text>
-        <View style={styles.opacity}>
+        <Text style={styles.container}>Login</Text>
+        <View>
           <TextInput
+            placeholderTextColor="gray"
             textContentType="emailAddress"
             autoCompleteType="email"
             style={styles.input}
             value={this.state.email}
             onChangeText={email => this.setState({ email })}
-            placeholder="email"
+            placeholder="Email Address"
           />
           <TextInput
+            placeholderTextColor="gray"
             secureTextEntry={true}
             textContentType="password"
             style={styles.input}
             value={this.state.pass}
             onChangeText={pass => this.setState({ pass })}
-            placeholder="password"
+            placeholder="Password"
           />
         </View>
-        <Button
-          style={styles.button}
-          color={this.state.buttonColor}
-          title="Submit"
-          onPress={() => this.login(this.state.email, this.state.pass)}
-        />
-        <Button
-          style={styles.button}
-          title="Create Account"
-          onPress={() => this.props.navigation.navigate('SignUp')}
-        />
-        <Button
-          title="Forgot Password?"
-          onPress={() => this.props.navigation.navigate('Password')}
-        />
+        <View style={styles.flex}>
+          <View style={styles.button}>
+            <Button
+              buttonStyle={{
+                backgroundColor: this.state.buttonColor,
+                borderRadius: 20
+              }}
+              raised
+              title="Login"
+              onPress={() => this.login(this.state.email, this.state.pass)}
+            />
+          </View>
+          <View style={styles.button}>
+            <Button
+              titleStyle={{
+                color: '#272343'
+              }}
+              buttonStyle={{
+                backgroundColor: '#ffffff',
+                borderRadius: 30,
+                borderColor: '#272343',
+                borderWidth: 3
+              }}
+              raised
+              title="Sign Up"
+              onPress={() => this.props.navigation.navigate('SignUp')}
+            />
+          </View>
+        </View>
+        <View style={{ padding: 10 }}>
+          <Button
+            buttonStyle={{
+              backgroundColor: '#272343',
+              borderRadius: 20
+            }}
+            raised
+            title="Forgot Password?"
+            onPress={() => this.props.navigation.navigate('Password')}
+          />
+        </View>
       </View>
     )
   }
@@ -97,40 +124,41 @@ const styles = StyleSheet.create({
   container: {
     textAlign: 'center',
     padding: 10,
-    fontSize: 30,
-    fontWeight: '600'
-    // marginTop: 40
+    fontSize: 50,
+    fontWeight: '700',
+    color: '#272343'
   },
   input: {
-    paddingLeft: 25,
-    paddingRight: 25,
+    paddingLeft: 20,
+    paddingRight: 20,
     paddingTop: 10,
     paddingBottom: 10,
-    borderColor: 'white',
-    borderWidth: 4,
-    margin: 5,
-    borderRadius: 20,
-    backgroundColor: 'white',
-    color: 'black'
+    margin: 10,
+    color: '#272343',
+    fontSize: 20,
+    fontWeight: '400',
+    borderColor: '#bae8e8',
+    backgroundColor: '#bae8e8',
+    borderWidth: 3,
+    borderRadius: 30
   },
   button: {
+    // marginRight: 140,
+    // marginLeft: 140,
     padding: 10,
-    margin: 20,
-    width: '50%'
+    flex: 2
   },
   body: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'gray'
+    backgroundColor: '#ffffff',
+    paddingTop: 0
   },
-  opacity: {
-    borderColor: 'white',
-    borderWidth: 4,
-    margin: 5,
-    borderRadius: 20,
-    backgroundColor: 'white',
-    opacity: 0.4,
-    padding: 10
+  flex: {
+    flexDirection: 'row',
+    // borderColor: 'red',
+    // borderWidth: 5,
+    justifyContent: 'center'
   }
 })
 

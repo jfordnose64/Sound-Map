@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { useState } from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import * as firebase from 'firebase'
-import { SocialIcon } from 'react-native-elements'
+import { SocialIcon, Button } from 'react-native-elements'
 
 class SignUp extends React.Component {
   state = {
@@ -27,16 +27,19 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.body}>
         <Text style={styles.header}>Sign Up</Text>
         <TextInput
+          placeholderTextColor="gray"
           style={styles.input}
           textContentType="emailAddress"
+          autoCompleteType="email"
           value={this.state.email}
           onChangeText={email => this.setState({ email })}
           placeholder="email"
         />
         <TextInput
+          placeholderTextColor="gray"
           style={styles.input}
           secureTextEntry={true}
           textContentType="newPassword"
@@ -45,6 +48,7 @@ class SignUp extends React.Component {
           placeholder="password"
         />
         <TextInput
+          placeholderTextColor="gray"
           style={styles.input}
           secureTextEntry={true}
           textContentType="newPassword"
@@ -52,13 +56,17 @@ class SignUp extends React.Component {
           onChangeText={confirmPass => this.setState({ confirmPass })}
           placeholder="confirm password"
         />
-        <Button
-          disabled={this.isInvalid}
-          style={styles.button}
-          color={this.state.buttonColor}
-          title="Sign Up"
-          onPress={() => this.handleSignUp(this.state.email, this.state.pass)}
-        />
+        <View style={styles.button}>
+          <Button
+            buttonStyle={{
+              backgroundColor: '#272343',
+              borderRadius: 20
+            }}
+            raised
+            title="Sign Up"
+            onPress={() => this.handleSignUp(this.state.email, this.state.pass)}
+          />
+        </View>
 
         {/* <SocialIcon
           title="Sign Up With Google"
@@ -81,22 +89,37 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   input: {
-    padding: 10,
-    margin: 20,
-    borderColor: 'black',
-    borderWidth: 5,
-    borderRadius: 15
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    margin: 10,
+    color: '#272343',
+    fontSize: 20,
+    fontWeight: '400',
+    borderColor: '#bae8e8',
+    backgroundColor: '#bae8e8',
+    borderWidth: 3,
+    borderRadius: 30
   },
   button: {
-    padding: 10,
-    margin: 20,
-    width: '50%'
+    // padding: 10,
+    flex: 2,
+    padding: 10
   },
   header: {
     textAlign: 'center',
-    fontSize: 25,
+    fontSize: 50,
     padding: 10,
-    fontWeight: '500'
+    fontWeight: '700',
+    color: '#272343'
+  },
+  body: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#ffffff',
+    textAlign: 'center',
+    paddingTop: 200
   }
 })
 
