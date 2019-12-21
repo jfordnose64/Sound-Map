@@ -3,15 +3,15 @@ import * as firebase from 'firebase'
 import { View, Text, StyleSheet } from 'react-native'
 import { Button } from 'react-native-elements'
 
-export default function SignOut() {
-  const out = () => {
+class SignOut extends React.Component {
+  out = () => {
     firebase
       .auth()
       .signOut()
       .then(function() {
         // Sign-out successful.
         alert('Signed Out!')
-        this.props.navigation.navigate('Login')
+        this.props.navigation.navigate('Loading')
       })
       .catch(function(error) {
         // An error happened.
@@ -19,11 +19,13 @@ export default function SignOut() {
       })
   }
 
-  return (
-    <View style={styles.container}>
-      <Button onPress={() => out()} raised title="Sign Out" />
-    </View>
-  )
+  render() {
+    return (
+      <View style={styles.container}>
+        <Button onPress={() => this.out()} raised title="Sign Out" />
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -35,3 +37,5 @@ const styles = StyleSheet.create({
     // width: '50%'
   }
 })
+
+export default SignOut

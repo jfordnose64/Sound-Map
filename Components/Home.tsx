@@ -1,10 +1,6 @@
 import * as React from 'react'
 import * as firebase from 'firebase'
 import { View, Button, Text, StyleSheet, AsyncStorage } from 'react-native'
-import { createAppContainer } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
-import Tab from './Navigation'
-import SignOut from './Firebase/SignOut'
 
 interface Name {
   name: string
@@ -98,7 +94,8 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     justifyContent: 'center',
-    marginTop: 20
+    // marginTop: 20,
+    backgroundColor: '#171F33'
   },
   header: {
     textAlign: 'center',
