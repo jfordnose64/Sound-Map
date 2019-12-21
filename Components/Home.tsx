@@ -66,14 +66,12 @@ class Home extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.container}>Home Page</Text>
+        <Text style={styles.header}>Home Page</Text>
         <Button
           title="Go to Details"
           onPress={() => this.props.navigation.navigate('HomeScreen')}
         />
-        {/* <Button title="user" onPress={() => user()} /> */}
-        {/* <Button title="User Data" onPress={() => readUserData()} /> */}
-        <SignOut />
+        {/* <SignOut /> */}
         <Button
           title="Profile"
           onPress={() => this.props.navigation.navigate('Profile')}
@@ -95,6 +93,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
     marginTop: 20
+  },
+  header: {
+    textAlign: 'center',
+    fontSize: 25,
+    margin: 10
   }
 })
 
