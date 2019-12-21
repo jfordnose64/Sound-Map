@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as firebase from 'firebase'
-import { View, Button, Text, StyleSheet } from 'react-native'
+import { View, Button, Text, StyleSheet, AsyncStorage } from 'react-native'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import Tab from './Navigation'
@@ -80,6 +80,12 @@ class Home extends React.Component {
         <Text style={{ color: this.state.color, textAlign: 'center' }}>
           Logged In
         </Text>
+        <Button
+          title="Async Test"
+          onPress={async () =>
+            console.log(await AsyncStorage.getItem('isLoggedIn'))
+          }
+        />
         {/* <Tab /> */}
         {/* <BottomNavigator /> */}
       </View>

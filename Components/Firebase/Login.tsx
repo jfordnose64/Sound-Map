@@ -5,7 +5,13 @@ import * as firebase from 'firebase'
 import { TextInput } from 'react-native-gesture-handler'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
-import { View, Text, StyleSheet, ImageBackground } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  AsyncStorage
+} from 'react-native'
 import { Button } from 'react-native-elements'
 
 class Loin extends React.Component {
@@ -26,6 +32,8 @@ class Loin extends React.Component {
       console.log('Logged In!')
       this.user()
       console.log(this.state.user)
+      await AsyncStorage.setItem('isLoggedIn', '1')
+      console.log(await AsyncStorage.getItem('isLoggedIn'))
       // const letUser = this.state.user
       // console.log(letUser)
       // Navigate to the Home page

@@ -9,9 +9,11 @@ import Password from './Firebase/Password'
 import Profile from './Profile'
 import HomeScreen from './HomeScreen'
 import Loading from './Firebase/Loading'
+import Map from './Map'
 
 const AppStack = createBottomTabNavigator({
   Home: { screen: Home },
+  Map: { screen: Map },
   Profile: { screen: Profile }
 })
 const AuthStack = createStackNavigator({

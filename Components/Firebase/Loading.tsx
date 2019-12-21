@@ -1,12 +1,17 @@
 import React from 'react'
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native'
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  StyleSheet,
+  AsyncStorage
+} from 'react-native'
 import firebase from 'firebase'
 
 export default class Loading extends React.Component {
-  componentDidMount() {
-    firebase.auth().onAuthStateChanged(user => {
-      this.props.navigation.navigate(user ? 'Login' : 'SignUp')
-    })
+  componentDidMount = async () => {
+    const isLoggedIn = await AsyncStorage.getItem('isLoggedIn')
+    this.props.navigation.navigate(isLoggedIn !== '1' ? 'Home' : 'Login')
   }
   render() {
     return (
