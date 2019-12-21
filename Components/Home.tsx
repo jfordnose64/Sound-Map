@@ -3,7 +3,7 @@ import * as firebase from 'firebase'
 import { View, Button, Text, StyleSheet } from 'react-native'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
-import Navigation from './Navigation'
+import Tab from './Navigation'
 import SignOut from './Firebase/SignOut'
 
 interface Name {
@@ -82,7 +82,8 @@ class Home extends React.Component {
         <Text style={{ color: this.state.color, textAlign: 'center' }}>
           Logged In
         </Text>
-        <Navigation />
+        {/* <Tab /> */}
+        {/* <BottomNavigator /> */}
       </View>
     )
   }
@@ -90,7 +91,10 @@ class Home extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    textAlign: 'center'
+    flex: 1,
+    textAlign: 'center',
+    justifyContent: 'center',
+    marginTop: 20
   }
 })
 
