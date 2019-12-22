@@ -7,7 +7,7 @@ import SignUp from './Firebase/SignUp'
 import Login from './Firebase/Login'
 import Password from './Firebase/Password'
 import Profile from './Profile'
-import HomeScreen from './HomeScreen'
+import Record from './Record'
 import Loading from './Firebase/Loading'
 import Map from './Map'
 import Icon from '@expo/vector-icons/FontAwesome'
@@ -35,6 +35,14 @@ const AppStack = createBottomTabNavigator(
       navigationOptions: () => ({
         tabBarIcon: ({ tintColor }) => (
           <Icon name="user-circle" color={tintColor} size={24} />
+        )
+      })
+    },
+    Record: {
+      screen: Record,
+      navigationOptions: () => ({
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="microphone" color={tintColor} size={24} />
         )
       })
     }

@@ -82,8 +82,6 @@ class Home extends React.Component {
             console.log(await AsyncStorage.getItem('isLoggedIn'))
           }
         />
-        {/* <Tab /> */}
-        {/* <BottomNavigator /> */}
       </View>
     )
   }
