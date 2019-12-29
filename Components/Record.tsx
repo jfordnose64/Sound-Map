@@ -1,49 +1,43 @@
 import * as React from 'react'
 import * as firebase from 'firebase'
-import {
-  View,
-  Button,
-  Text,
-  StyleSheet,
-  AsyncStorage,
-  PermissionsAndroid
-} from 'react-native'
+import { View, Text, StyleSheet, AsyncStorage } from 'react-native'
+import { Button } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import * as Permissions from 'expo-permissions'
+import { Audio } from 'expo-av'
+import Recording from './Recording'
 
 class Record extends React.Component {
-  requestCameraPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.MICROPHONE,
-        {
-          title: 'Cool Photo App Camera Permission',
-          message:
-            'Cool Photo App needs access to your camera ' +
-            'so you can take awesome pictures.',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK'
-        }
-      )
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('You can use the camera')
-      } else {
-        console.log('Camera permission denied')
-      }
-    } catch (err) {
-      console.warn(err)
-    }
+  state = {
+    color: 'red',
+    icon: 'microphone'
   }
 
-  // componentDidMount() {
-  //   this.requestCameraPermission()
-  // }
+  checkMultiPermissions = async () => {
+    const { status, permissions } = await Permissions.askAsync(
+      Permissions.AUDIO_RECORDING
+    )
+    if (status === 'granted') {
+      console.log('granted')
+    } else {
+      throw new Error('Location permission not granted')
+    }
+  }
 
   render() {
     return (
       <View style={styles.container}>
+        <Recording />
+        <Button title="request" onPress={() => this.checkMultiPermissions()} />
         <Button
-          title="request"
-          onPress={() => this.requestCameraPermission()}
+          buttonStyle={{
+            backgroundColor: this.state.color,
+            borderRadius: 50,
+            margin: 0,
+            padding: 0
+          }}
+          onPress={() => this.yes}
+          icon={<Icon name={this.state.icon} size={15} color="white" />}
         />
         <Text style={styles.header}>Record</Text>
       </View>
@@ -56,7 +50,6 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     justifyContent: 'center',
-    // marginTop: 20,
     backgroundColor: '#171F33'
   },
   header: {

@@ -12,6 +12,7 @@
     "@react-navigation/bottom-tabs": "^5.0.0-alpha.25",
     "@react-navigation/native": "^5.0.0-alpha.18",
     "expo": "^35.0.0",
+    "expo-av": "~7.0.1",
     "expo-image-picker": "^8.0.1",
     "firebase": "^7.5.2",
     "react": "16.8.3",
