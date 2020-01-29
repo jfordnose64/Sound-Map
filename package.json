@@ -19,6 +19,7 @@
     "react-dom": "16.8.3",
     "react-firebase-file-uploader": "^2.4.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
+    "react-native-audio-recorder-player": "^2.4.4-rc.1",
     "react-native-elements": "^1.2.7",
     "react-native-gesture-handler": "^1.5.2",
     "react-native-google-signin": "^2.1.1",
